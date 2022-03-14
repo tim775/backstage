@@ -256,7 +256,11 @@ export const TechDocsIndexPage: () => JSX.Element;
 export type TechDocsMetadata = {
   site_name: string;
   site_description: string;
+  nav?: TechDocsNav;
 };
+
+// @public
+export type TechDocsNav = Array<Record<string, string | TechDocsNav>>;
 
 // @public @deprecated (undocumented)
 export const TechDocsPage: ({

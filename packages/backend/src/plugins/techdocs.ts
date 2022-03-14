@@ -20,6 +20,7 @@ import {
   Preparers,
   Publisher,
 } from '@backstage/plugin-techdocs-backend';
+import { TechDocsGenerator } from '@backstage/plugin-techdocs-mdx-node';
 import Docker from 'dockerode';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
@@ -41,11 +42,14 @@ export default async function createPlugin({
   const dockerClient = new Docker();
   const containerRunner = new DockerContainerRunner({ dockerClient });
 
-  // Generators are used for generating documentation sites.
-  const generators = await Generators.fromConfig(config, {
+  const options = {
     logger,
     containerRunner,
-  });
+  };
+
+  // Generators are used for generating documentation sites.
+  const generators = await Generators.fromConfig(config, options);
+  generators.register('techdocs', TechDocsGenerator.fromConfig(options));
 
   // Publisher is used for
   // 1. Publishing generated files to storage

@@ -54,7 +54,7 @@ export const AnchorTransformer = () => {
       element.setAttribute('href', href);
 
       element.addEventListener('click', (event: MouseEvent) => {
-        if (!href.startsWith(origin)) return;
+        if (!href.startsWith(baseUrl)) return;
 
         event.preventDefault();
 
